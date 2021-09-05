@@ -22,9 +22,10 @@ docker run -d all --name ${container_name} \
 ```
 container_name="mediapipe-flask-01"
 image_name="tdri/mediapipe-python-flask:demo"
-docker run all -d --rm --name ${container_name} \
+docker run -d --rm --name ${container_name} \
     -p 5000:5000 \
     ${image_name} \
     flask run --host=0.0.0.0 --no-reload
+
 
 ```

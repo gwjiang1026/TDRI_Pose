@@ -10,7 +10,8 @@ import numpy
 import cv2
 import os
 import sys
-
+import numpy as np
+import base64
 from flask import current_app, Blueprint, jsonify, request
 import io
 import PIL.Image as Image
@@ -31,15 +32,20 @@ print("load function.")
 def Pose():
     try:
         img_bytes = request.files['image'].read()
-        filename = 'predict.jpg'  
+        #filename = 'predict.jpg'  
           
+    
+        decoded_data = base64.b64decode(img_bytes)
+        np_data = np.fromstring(decoded_data,np.uint8)
+        img = cv2.imdecode(np_data,cv2.IMREAD_UNCHANGED)
+        
         ##待修改
-        image = Image.open(io.BytesIO(img_bytes))
-        image.save(filename)
+        #image = Image.open(io.BytesIO(img_bytes))
+        #image.save(filename)
         value_result = ''
         tipIds = [4, 8, 12, 16, 20]
         
-        img = cv2.imread(filename)
+        #img = cv2.imread(filename)
         img = detector.findHands(img)
         lmList = detector.findPosition(img, draw=False)
        # lmList =   [[0, 528, 366], [1, 470, 369], [2, 417, 338], [3, 376, 313], [4, 332, 315], [5, 452, 231], [6, 435, 164], [7, 430, 123], [8, 430, 89], [9, 491, 219], [10, 481, 137], [11, 478, 88], [12, 480, 43], [13, 530, 222], [14, 532, 143], [15, 535, 97], [16, 538, 52], [17, 569, 239], [18, 594, 187], [19, 614, 157], [20, 630, 125]]
