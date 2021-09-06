@@ -33,7 +33,7 @@ RUN apt-get update && \
     pip install opencv-python && \
     apt install -y libgl1-mesa-glx
 RUN apt-get install -y libglib2.0-0
-
+RUN pip install mediapipe
 
 ## Change TimeZone
 RUN cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
