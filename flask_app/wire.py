@@ -47,11 +47,13 @@ def Pose():
         img_bytes = request.files['image'].read() 
         img = cv2.imdecode(np.frombuffer(img_bytes, np.uint8), -1)
         
-        for i in range(1,20):
-            detector_img = detector.findHands(img)
+        print(img.shape)     
+        
+        detector_img = detector.findHands(img)
+        
+        
+        for i in range(1,2):
             detector_img = detector.findHands(img) # 一次的時候會漏掉
-
-            
             lmList = detector.findPosition(detector_img, draw=False)
             
             if len(lmList) != 0:
@@ -102,12 +104,14 @@ def Pose():
                 result_array.append(value_result) 
                 
         maxlabel = max(result_array,key = result_array.count)
-        ratio = result_array.count(maxlabel)/len(result_array)
+        #ratio = result_array.count(maxlabel)/len(result_array)
                 
         res_object = {}
         #res_object['test'] = result_array
         
-        res_object['conf'] = ratio
+        #res_object['test'] = img.shape
+        
+        #res_object['conf'] = ratio
         res_object['label'] = maxlabel
         res_object['objectRectangle'] =  {
             "top": min(c),
