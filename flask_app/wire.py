@@ -50,6 +50,8 @@ def Pose():
         for i in range(1,20):
             detector_img = detector.findHands(img)
             detector_img = detector.findHands(img) # 一次的時候會漏掉
+
+            
             lmList = detector.findPosition(detector_img, draw=False)
             
             if len(lmList) != 0:
@@ -63,23 +65,25 @@ def Pose():
                 if lmList[4][2] == min(c):
                     classtype = 1
                     result = 'thumb_up'
-                if lmList[4][2] == max(c):
+                elif lmList[4][2] == max(c):
                     classtype = 1
                     result = 'thumb_down'
             
                 #為了大拇指
-                if (lmList[0][1] - lmList[2][1]) / (lmList[0][2] - lmList[2][2])<0:
-                           
-                    if lmList[tipIds[0]][1] > lmList[tipIds[0] - 1][1]:
-                        fingers.append(1)
-                    else:
+                elif (lmList[0][2] - lmList[2][2]) / (lmList[0][1] - lmList[2][1])<0 :
+                       
+                    #print('right')
+                    if lmList[tipIds[0]][1] < lmList[tipIds[0] - 1][1] or (lmList[4][2] - lmList[5][2])**2 + (lmList[4][1] - lmList[5][1])**2<(lmList[3][2] - lmList[5][2])**2 + (lmList[3][1] - lmList[5][1])**2 * 0.8:
                         fingers.append(0)
+                    else:
+                        fingers.append(1)
                 else:
-            
-                    if lmList[tipIds[0]][1] < lmList[tipIds[0] - 1][1]:
-                        fingers.append(1)
-                    else:
+                   
+                    #print('left')
+                    if lmList[tipIds[0]][1] > lmList[tipIds[0] - 1][1] or (lmList[4][2] - lmList[5][2])**2 + (lmList[4][1] - lmList[5][1])**2<(lmList[3][2] - lmList[5][2])**2 + (lmList[3][1] - lmList[5][1])**2*0.8:
                         fingers.append(0)
+                    else:
+                        fingers.append(1)
             
                 # 4 FingersNo documentation a
                 for id in range(1, 5):
