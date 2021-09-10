@@ -119,7 +119,7 @@ def Pose():
             "width": max(b) - min(b) ,
             "height": max(c) - min(c)  
             }
-        
+        output={ 'status': "100" } 
         res_objects.append(res_object)
         output['status'] = 0
         output['predict'] = res_objects
@@ -128,8 +128,15 @@ def Pose():
     
     except Exception as err:
         logger.error("Fatal error in %s", err, exc_info=True)
-        status = {"Fatal": str(err)}
-        return jsonify(status)
+        #status = {"Fatal": str(err)}
+        output={ 'status': "100" } 
+        res_objects = []
+        res_objects.append(res_object)
+        
+        output['predict'] = res_objects
+
+        
+        return jsonify(output)
     
     
 @api_bp.route('/test', methods=['GET', 'POST'])

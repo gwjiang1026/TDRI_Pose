@@ -21,7 +21,7 @@ import io
 import cv2
 import numpy as np
 byteImgIO = io.BytesIO()
-byteImg = Image.open(r"C:\Users\GWJIANG\Downloads\WIN_20210902_17_27_34_Pro.jpg")
+byteImg = Image.open(r"C:\Users\GWJIANG\Desktop\GW\python code\yolov4\DEMO\4.JPG")
 byteImg.save(byteImgIO, "PNG")
 byteImgIO.seek(0)
 byteImg = byteImgIO.read()
