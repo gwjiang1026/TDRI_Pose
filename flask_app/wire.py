@@ -125,18 +125,13 @@ def Pose():
         output['predict'] = res_objects
 
         return jsonify(output)
-    
     except Exception as err:
         logger.error("Fatal error in %s", err, exc_info=True)
-        #status = {"Fatal": str(err)}
-        output={ 'status': "100" } 
-        res_objects = []
-        res_objects.append(res_object)
-        
-        output['predict'] = res_objects
+        status = {"Fatal": str(err)}
+        status['predict']= []
+        status['status']= "100" 
 
-        
-        return jsonify(output)
+        return jsonify(status)
     
     
 @api_bp.route('/test', methods=['GET', 'POST'])
