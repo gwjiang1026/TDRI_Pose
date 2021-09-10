@@ -122,13 +122,13 @@ def Pose():
         output={ 'status': "100" } 
         res_objects.append(res_object)
         output['status'] = 0
-        output['predict'] = res_objects
+        output['pose'] = res_objects
 
         return jsonify(output)
     except Exception as err:
         logger.error("Fatal error in %s", err, exc_info=True)
         status = {"Fatal": str(err)}
-        status['predict']= []
+        status['pose']= []
         status['status']= "100" 
 
         return jsonify(status)
@@ -136,18 +136,5 @@ def Pose():
     
 @api_bp.route('/test', methods=['GET', 'POST'])
 def test():
-    """
-    ---
-    get:
-      description: test endpoint
-      responses:
-        '200':
-          description: call successful
-          content:
-            application/json:
-              schema: OutputSchema
-      tags:
-          - testing
-    """
     output = {"msg": "I'm the test endpoint from blueprint_x."}
     return jsonify(output)
