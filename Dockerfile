@@ -34,6 +34,7 @@ RUN apt-get update && \
     apt install -y libgl1-mesa-glx
 RUN apt-get install -y libglib2.0-0
 RUN pip install mediapipe
+RUN pip install cvzone
 
 ## Change TimeZone
 RUN cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
